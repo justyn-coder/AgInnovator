@@ -90,6 +90,20 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Help Us Build Banner */}
+      <section className="border-t border-[#e5e0d5] bg-[#1a3a0a] py-5 px-6" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <div className="max-w-5xl mx-auto text-center">
+          <span className="text-base font-bold text-[#c5a55a]">Help Us Build</span>
+          <span className="text-sm text-[#d4d0c8] mx-3">—</span>
+          <a 
+            href="mailto:justyn@bestinshow.ag"
+            className="text-sm text-white hover:text-[#c5a55a] transition-colors underline underline-offset-2"
+          >
+            justyn@bestinshow.ag
+          </a>
+        </div>
+      </section>
+
       {/* QR Code Overlay */}
       {showQr && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
