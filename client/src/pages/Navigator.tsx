@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import { useState, useRef, useEffect } from "react";
-import logoImage from "@/assets/images/logo.png";
+import logoWordmark from "@/assets/images/logo-wordmark.png";
 import bestInShowLogo from "@/assets/images/bestinshow-tagline-logo.png";
 import { Link } from "wouter";
 
@@ -672,7 +672,7 @@ export default function Navigator() {
         <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
           <Link href="/">
             <div style={{cursor:"pointer", display:"flex", alignItems:"center"}}>
-              <img src={logoImage} alt="Canadian Ag Innovation Navigator" style={{height:"50px",width:"auto",objectFit:"contain",display:"block", filter: "brightness(0) invert(1)"}} />
+              <img src={logoWordmark} alt="Canadian Ag Innovation Navigator" style={{height:"64px",width:"auto",objectFit:"contain",display:"block"}} />
             </div>
           </Link>
         </div>
