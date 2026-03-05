@@ -670,8 +670,8 @@ export default function Navigator() {
       <header style={{background:th.hdr,padding:"9px 14px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:"3px solid "+th.acc,flexWrap:"wrap",gap:"5px"}}>
         <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
           <Link href="/">
-            <div style={{width:"40px",height:"40px",background:"#fff",borderRadius:"8px",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",boxShadow:"0 1px 3px rgba(0,0,0,0.1)"}}>
-              <img src={logoImage} alt="Logo" style={{height:"28px",width:"28px",objectFit:"contain",display:"block"}} />
+            <div style={{cursor:"pointer", display:"flex", alignItems:"center"}}>
+              <img src={logoImage} alt="Logo" style={{height:"40px",width:"auto",objectFit:"contain",display:"block", filter: "brightness(0) invert(1)"}} />
             </div>
           </Link>
           <div>
