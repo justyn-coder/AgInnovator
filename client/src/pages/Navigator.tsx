@@ -504,27 +504,27 @@ function EcoStats() {
   return (
     <div style={{margin:"10px 0"}}>
       <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"5px",marginBottom:"8px"}}>
-        {[{n:byCat.Fund,l:"Funding",c:"#1a4b8c",bg:"#e8f0fe"},{n:byCat.Pilot,l:"Pilot Sites",c:"#1a6b2a",bg:"#e8f5e9"},{n:byCat.Accel,l:"Accelerators",c:"#8c5a1a",bg:"#fff3e0"}].map(function(d,i){
-          return <div key={i} style={{background:d.bg,borderRadius:"8px",padding:"8px",textAlign:"center",border:"1px solid #e5ebd5"}}><div style={{fontSize:"1.3rem",fontWeight:800,color:d.c,...hs}}>{d.n}</div><div style={{fontSize:"0.5rem",color:d.c,...hs,fontWeight:600}}>{d.l}</div></div>;
+        {[{n:byCat.Fund,l:"Funding",c:"#1a4b8c",bg:"#ffffff"},{n:byCat.Pilot,l:"Pilot Sites",c:"#1a6b2a",bg:"#ffffff"},{n:byCat.Accel,l:"Accelerators",c:"#8c5a1a",bg:"#ffffff"}].map(function(d,i){
+          return <div key={i} style={{background:d.bg,borderRadius:"8px",padding:"8px",textAlign:"center",border:"1px solid #d1d8e0"}}><div style={{fontSize:"1.3rem",fontWeight:800,color:d.c,...hs}}>{d.n}</div><div style={{fontSize:"0.5rem",color:d.c,...hs,fontWeight:600}}>{d.l}</div></div>;
         })}
       </div>
-      <div style={{background:"#ffffff",border:"1px solid #e5ebd5",borderRadius:"8px",padding:"8px",marginBottom:"6px"}}>
-        <div style={{fontSize:"0.58rem",fontWeight:700,color:"#2d5016",marginBottom:"4px",...hs}}>Coverage by Stage</div>
+      <div style={{background:"#ffffff",border:"1px solid #d1d8e0",borderRadius:"8px",padding:"8px",marginBottom:"6px"}}>
+        <div style={{fontSize:"0.58rem",fontWeight:700,color:"#1e3a5f",marginBottom:"4px",...hs}}>Coverage by Stage</div>
         {SN.map(function(s,i){var ct=byStage[SK[i]];var pct=Math.round(ct/E.length*100);
           return <div key={i} style={{display:"flex",alignItems:"center",gap:"4px",marginBottom:"2px"}}>
-            <span style={{fontSize:"0.54rem",width:"55px",textAlign:"right",color:"#555555",...hs}}>{s}</span>
-            <div style={{flex:1,height:"7px",background:"#f0f4f0",borderRadius:"3px",overflow:"hidden"}}><div style={{height:"100%",width:pct+"%",background:"linear-gradient(90deg,#8eb573,#2d5016)",borderRadius:"3px"}}/></div>
+            <span style={{fontSize:"0.54rem",width:"55px",textAlign:"right",color:"#5a6577",...hs}}>{s}</span>
+            <div style={{flex:1,height:"7px",background:"#e4e8ec",borderRadius:"3px",overflow:"hidden"}}><div style={{height:"100%",width:pct+"%",background:"linear-gradient(90deg,#2e86ab,#1e3a5f)",borderRadius:"3px"}}/></div>
             <span style={{fontSize:"0.52rem",color:"#1a1a1a",width:"18px",...hs,fontWeight:600}}>{ct}</span>
           </div>;
         })}
       </div>
-      <div style={{background:"#ffffff",border:"1px solid #e5ebd5",borderRadius:"8px",padding:"8px"}}>
-        <div style={{fontSize:"0.58rem",fontWeight:700,color:"#2d5016",marginBottom:"4px",...hs}}>Coverage by Region</div>
+      <div style={{background:"#ffffff",border:"1px solid #d1d8e0",borderRadius:"8px",padding:"8px"}}>
+        <div style={{fontSize:"0.58rem",fontWeight:700,color:"#1e3a5f",marginBottom:"4px",...hs}}>Coverage by Region</div>
         {Object.entries(byRgn).map(function(pair){var k=pair[0],v=pair[1];var pct=Math.round(v/E.length*100);
           return <div key={k} style={{display:"flex",alignItems:"center",gap:"4px",marginBottom:"2px"}}>
-            <span style={{fontSize:"0.54rem",width:"55px",textAlign:"right",color:"#555555",...hs}}>{k}</span>
-            <div style={{flex:1,height:"7px",background:"#f0f4f0",borderRadius:"3px",overflow:"hidden"}}><div style={{height:"100%",width:pct+"%",background:k==="AB"?"#2d5016":k==="National"?"#c5a55a":"#8eb573",borderRadius:"3px"}}/></div>
-            <span style={{fontSize:"0.52rem",color:"#eee",width:"18px",...hs,fontWeight:600}}>{v}</span>
+            <span style={{fontSize:"0.54rem",width:"55px",textAlign:"right",color:"#5a6577",...hs}}>{k}</span>
+            <div style={{flex:1,height:"7px",background:"#e4e8ec",borderRadius:"3px",overflow:"hidden"}}><div style={{height:"100%",width:pct+"%",background:k==="AB"?"#1e3a5f":k==="National"?"#2e86ab":"#5a6577",borderRadius:"3px"}}/></div>
+            <span style={{fontSize:"0.52rem",color:"#1a1a1a",width:"18px",...hs,fontWeight:600}}>{v}</span>
           </div>;
         })}
       </div>
@@ -604,7 +604,7 @@ export default function Navigator() {
   var eco = mode === "ec";
 
   var th = eco
-    ? {bg:"#f9fcfb",hdr:"#112a1f",acc:"#2d5016",ac2:"#2d5016",card:"#ffffff",tx:"#1a1a1a",tx2:"#555555",brd:"#e5ebd5"}
+    ? {bg:"#f0f2f5",hdr:"#1e3a5f",acc:"#2e86ab",ac2:"#1e3a5f",card:"#ffffff",tx:"#1a1a1a",tx2:"#5a6577",brd:"#d1d8e0"}
     : {bg:"#f7f5f0",hdr:"#1a3a0a",acc:"#c5a55a",ac2:"#2d5016",card:"#fff",tx:"#1a1a1a",tx2:"#666",brd:"#e5e0d5"};
 
   var exE = [
