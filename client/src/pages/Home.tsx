@@ -702,7 +702,7 @@ export default function Home() {
                 return <button key={i} onClick={function(){send(x);}} style={{background:th.card,border:"1px solid "+th.brd,borderRadius:"6px",padding:"7px 10px",fontSize:"0.74rem",...hs,color:th.tx,cursor:"pointer",textAlign:"left",lineHeight:"1.3"}}>{x}</button>;
               })}
             </div>
-            {!eco && (
+            {eco && (
               <div style={{marginTop:"12px",background:"#fff",border:"1px dashed #c5a55a",borderRadius:"6px",padding:"9px 12px",textAlign:"center"}}>
                 <p style={{fontSize:"0.76rem",color:"#1a3a0a",fontWeight:600,margin:"0 0 3px",...hs}}>Know a program that should be listed?</p>
                 <button onClick={function(){sSb(true);}} style={{background:"#1a3a0a",color:"#fff",border:"none",borderRadius:"5px",padding:"6px 16px",fontSize:"0.72rem",...hs,fontWeight:600,cursor:"pointer"}}>+ Submit a Program</button>
