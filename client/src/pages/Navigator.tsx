@@ -538,24 +538,47 @@ function EcoStats() {
 function SF({onClose}) {
   var [f,sF] = useState({n:"",bf:"",sn:"",se:""});
   var [done,sD] = useState(false);
+  var [submitting,sSub] = useState(false);
+  var [subName,sSubName] = useState("");
   function u(k,v){sF(function(p){var o={...p};o[k]=v;return o;});}
   function go(){
-    if(!f.n||!f.bf||!f.sn||!f.se){alert("Fill required fields");return;}
-    try{var x=JSON.parse(localStorage.getItem("ns")||"[]");x.push({...f,type:"new",ts:new Date().toISOString()});localStorage.setItem("ns",JSON.stringify(x));}catch(e){}
-    sD(true);
+    if(!f.n||!f.bf||!f.sn||!f.se){alert("Please fill in all required fields.");return;}
+    sSub(true);
+    fetch("/api/submissions", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({programName: f.n, bestFor: f.bf, submitterName: f.sn, submitterEmail: f.se})
+    }).then(function(res){ return res.json(); }).then(function(){
+      sSubName(f.n);
+      sD(true);
+      sSub(false);
+    }).catch(function(){
+      alert("Something went wrong. Please try again.");
+      sSub(false);
+    });
   }
-  if(done) return <div style={{position:"fixed",inset:0,background:"#f7f5f0",zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}><p style={{fontSize:"2rem"}}>{"✅"}</p><p style={{...hs,fontWeight:600}}>Submitted!</p><button onClick={onClose} style={{marginTop:"12px",background:"#1a3a0a",color:"#fff",border:"none",borderRadius:"6px",padding:"8px 20px",...hs,fontWeight:600,cursor:"pointer"}}>Done</button></div>;
+  if(done) return (
+    <div style={{position:"fixed",inset:0,background:"#f7f5f0",zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",padding:"24px"}}>
+      <div style={{background:"#fff",borderRadius:"16px",padding:"32px 28px",maxWidth:"420px",width:"100%",textAlign:"center",border:"2px solid #c5a55a",boxShadow:"0 4px 24px rgba(0,0,0,0.08)"}}>
+        <div style={{width:"56px",height:"56px",borderRadius:"50%",background:"#e8f5e9",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px",fontSize:"1.6rem"}}>{"✓"}</div>
+        <h3 style={{fontSize:"1.1rem",fontWeight:700,color:"#1a3a0a",margin:"0 0 8px",...hs}}>Submission Received</h3>
+        <p style={{fontSize:"0.82rem",color:"#444",lineHeight:"1.5",margin:"0 0 6px",...hs}}>Thank you for submitting <strong>{subName}</strong>.</p>
+        <p style={{fontSize:"0.76rem",color:"#666",lineHeight:"1.5",margin:"0 0 20px",...hs}}>Our team will review your entry and add it to the Navigator once verified. You'll receive a confirmation email at the address you provided.</p>
+        <button data-testid="button-submission-done" onClick={onClose} style={{background:"#1a3a0a",color:"#fff",border:"none",borderRadius:"8px",padding:"10px 28px",...hs,fontWeight:600,cursor:"pointer",fontSize:"0.82rem"}}>Done</button>
+      </div>
+    </div>
+  );
   var inpS = {width:"100%",padding:"7px",borderRadius:"5px",border:"1px solid #ccc",fontSize:"0.78rem",...hs,boxSizing:"border-box"};
   return (
     <div style={{position:"fixed",inset:0,background:"#f7f5f0",zIndex:1000,overflow:"auto",...hs}}>
       <div style={{background:"#1a3a0a",padding:"10px 16px",display:"flex",justifyContent:"space-between",borderBottom:"3px solid #c5a55a",position:"sticky",top:0,zIndex:10}}><span style={{color:"#fff",fontWeight:700}}>{"+ Submit Program"}</span><button onClick={onClose} style={{background:"#c5a55a",border:"none",borderRadius:"5px",padding:"4px 11px",fontWeight:700,cursor:"pointer",...hs}}>X</button></div>
       <div style={{maxWidth:"540px",margin:"0 auto",padding:"14px"}}>
-        <label style={{display:"block",fontSize:"0.72rem",fontWeight:600,marginBottom:"2px"}}>Name *</label><input value={f.n} onChange={function(e){u("n",e.target.value);}} style={inpS}/><br/>
-        <label style={{display:"block",fontSize:"0.72rem",fontWeight:600,marginBottom:"2px",marginTop:"8px"}}>Best for *</label><textarea value={f.bf} onChange={function(e){u("bf",e.target.value);}} rows={2} style={{...inpS,resize:"vertical"}}/><br/>
+        <label style={{display:"block",fontSize:"0.72rem",fontWeight:600,marginBottom:"2px"}}>Program Name *</label><input data-testid="input-program-name" value={f.n} onChange={function(e){u("n",e.target.value);}} style={inpS}/><br/>
+        <label style={{display:"block",fontSize:"0.72rem",fontWeight:600,marginBottom:"2px",marginTop:"8px"}}>Best for (what does this program do?) *</label><textarea data-testid="input-best-for" value={f.bf} onChange={function(e){u("bf",e.target.value);}} rows={2} style={{...inpS,resize:"vertical"}}/><br/>
         <div style={{borderTop:"2px solid #c5a55a",margin:"12px 0 8px",paddingTop:"8px"}}><p style={{fontWeight:700,fontSize:"0.72rem",color:"#1a3a0a"}}>Your Contact Info</p></div>
-        <label style={{display:"block",fontSize:"0.72rem",fontWeight:600,marginBottom:"2px"}}>Name *</label><input value={f.sn} onChange={function(e){u("sn",e.target.value);}} style={inpS}/><br/>
-        <label style={{display:"block",fontSize:"0.72rem",fontWeight:600,marginBottom:"2px",marginTop:"8px"}}>Email *</label><input type="email" value={f.se} onChange={function(e){u("se",e.target.value);}} style={inpS}/><br/>
-        <button onClick={go} style={{width:"100%",background:"#1a3a0a",color:"#fff",border:"none",borderRadius:"6px",padding:"11px",...hs,fontWeight:600,cursor:"pointer",marginTop:"10px"}}>Submit</button>
+        <label style={{display:"block",fontSize:"0.72rem",fontWeight:600,marginBottom:"2px"}}>Your Name *</label><input data-testid="input-submitter-name" value={f.sn} onChange={function(e){u("sn",e.target.value);}} style={inpS}/><br/>
+        <label style={{display:"block",fontSize:"0.72rem",fontWeight:600,marginBottom:"2px",marginTop:"8px"}}>Your Email *</label><input data-testid="input-submitter-email" type="email" value={f.se} onChange={function(e){u("se",e.target.value);}} style={inpS}/><br/>
+        <button data-testid="button-submit-program" onClick={go} disabled={submitting} style={{width:"100%",background:submitting?"#666":"#1a3a0a",color:"#fff",border:"none",borderRadius:"6px",padding:"11px",...hs,fontWeight:600,cursor:submitting?"default":"pointer",marginTop:"10px"}}>{submitting ? "Submitting..." : "Submit"}</button>
       </div>
     </div>
   );
