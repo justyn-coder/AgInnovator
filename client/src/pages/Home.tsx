@@ -13,9 +13,20 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#f7f5f0] text-[#1a1a1a] relative" style={{ fontFamily: "'Source Serif 4', serif" }}>
+    <div className="min-h-screen bg-[#f7f5f0] text-[#1a1a1a] relative flex flex-col" style={{ fontFamily: "'Source Serif 4', serif" }}>
+      
+      {/* Powered by Banner */}
+      <div className="w-full bg-white border-b border-[#e5e0d5] py-2 px-6 flex justify-center items-center" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <div className="flex items-center gap-2 text-[#666] text-xs font-medium uppercase tracking-wider">
+          <span>Powered by</span>
+          <a href="https://bestinshow.ag" target="_blank" rel="noopener noreferrer" className="flex items-center">
+            <img src={bestInShowLogo} alt="BestInShow" className="h-5 object-contain" />
+          </a>
+        </div>
+      </div>
+
       {/* Hero Section */}
-      <main className="pt-24 pb-16 px-6 max-w-5xl mx-auto flex flex-col items-center text-center">
+      <main className="flex-1 pt-20 pb-16 px-6 max-w-5xl mx-auto flex flex-col items-center text-center">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#1a3a0a] leading-[1.1] mb-12 max-w-4xl">
           Canada's ag innovation ecosystem is powerful. <br className="hidden md:block" />
           <span className="text-[#c5a55a]">It's also a maze.</span>
@@ -76,7 +87,7 @@ export default function Home() {
       </main>
 
       {/* Demo Banner */}
-      <section className="border-t border-b border-[#e5e0d5] bg-white py-6 px-6" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+      <section className="border-t border-[#e5e0d5] bg-white py-6 px-6 mt-auto" style={{ fontFamily: "'DM Sans', sans-serif" }}>
         <div className="max-w-5xl mx-auto flex items-center justify-center gap-4 text-center text-[#1a1a1a] font-medium">
           <span className="text-lg font-bold text-[#1a3a0a]">Demo Version 1.0</span>
           <button 
@@ -88,16 +99,6 @@ export default function Home() {
           </button>
         </div>
       </section>
-      
-      {/* Footer */}
-      <footer className="py-12 px-6 flex justify-center items-center" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        <div className="flex items-center gap-2 text-[#666] text-sm">
-          <span>Powered by</span>
-          <a href="https://bestinshow.ag" target="_blank" rel="noopener noreferrer" className="flex items-center">
-            <img src={bestInShowLogo} alt="BestInShow" className="h-6 object-contain" />
-          </a>
-        </div>
-      </footer>
 
       {/* QR Code Overlay */}
       {showQr && (
