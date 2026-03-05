@@ -1,40 +1,19 @@
 import { Link } from "wouter";
-import logoImage from "@/assets/images/logo.png";
 import { ArrowRight, Leaf, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#f7f5f0] text-[#1a1a1a]" style={{ fontFamily: "'Source Serif 4', serif" }}>
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between bg-[#f7f5f0]/90 backdrop-blur-md border-b border-[#e5e0d5]">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white border border-[#e5e0d5] flex items-center justify-center overflow-hidden">
-            <img src={logoImage} alt="Logo" className="w-8 h-8 object-contain" />
-          </div>
-          <span className="font-semibold text-sm tracking-tight text-[#1a3a0a]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            Canadian Ag Innovation
-          </span>
-        </div>
-      </nav>
-
       {/* Hero Section */}
-      <main className="pt-32 pb-16 px-6 max-w-5xl mx-auto flex flex-col items-center text-center">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#1a3a0a] leading-[1.1] mb-6 max-w-4xl">
+      <main className="pt-24 pb-16 px-6 max-w-5xl mx-auto flex flex-col items-center text-center">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#1a3a0a] leading-[1.1] mb-12 max-w-4xl">
           Canada's ag innovation ecosystem is powerful. <br className="hidden md:block" />
           <span className="text-[#c5a55a]">It's also a maze.</span>
         </h1>
         
-        <p className="text-xl md:text-2xl text-[#1a1a1a] max-w-3xl mb-8 leading-relaxed font-light">
-          99 programs. Funding, pilot sites, accelerators, events — mapped, scored, and connected. The Canadian Ag Innovation Navigator helps you find what's next in under 60 seconds.
-        </p>
-        
-        <p className="text-sm md:text-base text-[#666] max-w-3xl mb-16 leading-relaxed italic border-l-2 border-[#c5a55a] pl-4 text-left">
-          Built on Bioenterprise Canada's 2024 National Roundtable recommendation for "a centralized, easily accessible roadmap of services and resources for entrepreneurs to navigate the commercialization pathway."
-        </p>
-
         {/* Action Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mb-16" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           
           {/* Entrepreneur Card */}
           <Link href="/navigator" onClick={() => localStorage.setItem("ag_nav_mode", "e")}>
@@ -77,6 +56,14 @@ export default function Home() {
           </Link>
 
         </div>
+
+        <p className="text-xl md:text-2xl text-[#1a1a1a] max-w-3xl mb-8 leading-relaxed font-light">
+          99 programs. Funding, pilot sites, accelerators, events — mapped, scored, and connected. The Canadian Ag Innovation Navigator helps you find what's next in under 60 seconds.
+        </p>
+        
+        <p className="text-sm md:text-base text-[#666] max-w-3xl mb-8 leading-relaxed italic border-l-2 border-[#c5a55a] pl-4 text-left">
+          Built on Bioenterprise Canada's 2024 National Roundtable recommendation for "a centralized, easily accessible roadmap of services and resources for entrepreneurs to navigate the commercialization pathway."
+        </p>
       </main>
 
       {/* Feature snapshot */}
