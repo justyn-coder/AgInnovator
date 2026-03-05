@@ -747,18 +747,18 @@ export default function Navigator() {
       </div>
 
       <div style={{borderTop:"1px solid "+th.brd,background:th.card,padding:"8px 14px",maxWidth:"820px",width:"100%",margin:"0 auto",boxSizing:"border-box"}}>
-        <div style={{display:"flex",gap:"5px",alignItems:"flex-end",marginBottom:"8px"}}>
+        <div style={{display:"flex",gap:"5px",alignItems:"flex-end",marginBottom:"16px"}}>
           <textarea value={q} onChange={function(e){sQ(e.target.value);}} onKeyDown={function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send(q);}}} placeholder={eco ? "Ask about gaps, partnerships..." : "Describe your situation..."} rows={2} style={{flex:1,padding:"8px 10px",borderRadius:"6px",border:"1px solid "+th.brd,fontSize:"0.78rem",...hs,resize:"none",outline:"none",lineHeight:"1.3",background:th.bg,color:th.tx}}/>
           <button onClick={function(){send(q);}} disabled={ld||!q.trim()} style={{background:(ld||!q.trim())?"#555":th.ac2,color:"#fff",border:"none",borderRadius:"6px",padding:"8px 14px",fontSize:"0.76rem",...hs,fontWeight:600,cursor:(ld||!q.trim())?"default":"pointer"}}>
             {ld ? "..." : "Ask"}
           </button>
         </div>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"10px"}}>
-          <p style={{fontSize:"0.54rem",color:th.tx2,...hs,margin:0}}>Canadian Ag Innovation Navigator V0 - 99 entries - Bioenterprise 2024 + provincial + federal</p>
-          <div style={{display:"flex",alignItems:"center",gap:"6px",fontSize:"0.54rem",color:th.tx2,...hs,textTransform:"uppercase",letterSpacing:"0.04em"}}>
-            <span>Powered by</span>
-            <a href="https://bestinshow.ag" target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center"}}>
-              <img src={bestInShowLogo} alt="BestInShow" style={{height:"12px",objectFit:"contain",filter:eco?"brightness(0) opacity(0.6)":"brightness(0) opacity(0.6)"}} />
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"16px",paddingBottom:"8px"}}>
+          <p style={{fontSize:"0.54rem",color:th.tx2,...hs,margin:0,textAlign:"center"}}>Canadian Ag Innovation Navigator V0 - 99 entries - Bioenterprise 2024 + provincial + federal</p>
+          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"6px"}}>
+            <span style={{fontSize:"0.5rem",color:"#8c8c8c",...hs,textTransform:"uppercase",letterSpacing:"0.2em",fontWeight:700}}>Powered by</span>
+            <a href="https://bestinshow.ag" target="_blank" rel="noopener noreferrer" style={{display:"block", opacity:0.9, transition:"opacity 0.2s"}}>
+              <img src={bestInShowLogo} alt="BestInShow" style={{height:"32px",objectFit:"contain"}} />
             </a>
           </div>
         </div>
