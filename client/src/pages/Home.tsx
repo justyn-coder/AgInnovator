@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { ArrowRight, Leaf, Map, QrCode, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import bestInShowLogo from "@/assets/images/bestinshow-logo.png";
+import bestInShowLogo from "@/assets/images/bestinshow-tagline-logo.png";
 
 export default function Home() {
   const [showQr, setShowQr] = useState(false);
@@ -92,7 +92,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 px-6 flex justify-center items-center" style={{ fontFamily: "'DM Sans', sans-serif" }}>
         <div className="flex items-center gap-2 text-[#666] text-sm">
-          <span>Built by</span>
+          <span>Powered by</span>
           <a href="https://bestinshow.ag" target="_blank" rel="noopener noreferrer" className="flex items-center">
             <img src={bestInShowLogo} alt="BestInShow" className="h-6 object-contain" />
           </a>
