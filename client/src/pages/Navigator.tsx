@@ -627,7 +627,14 @@ export default function Navigator() {
     "What partnerships create the strongest idea-to-Series-A pipeline?"
   ];
 
-  useEffect(function(){if(er.current)er.current.scrollIntoView({behavior:"smooth"});},[ms]);
+  useEffect(function(){window.scrollTo(0, 0);},[]);
+  useEffect(function(){
+    if (ms.length > 2 && er.current) {
+      er.current.scrollIntoView({behavior:"smooth"});
+    } else if (ms.length > 0) {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+  },[ms]);
 
   function reset(){sMs([]);sQ("");sSx(true);sLd(false);}
   function flip(){reset();setMode(function(m){return m==="e"?"ec":"e";});}
@@ -672,7 +679,7 @@ export default function Navigator() {
         <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
           <Link href="/">
             <div style={{cursor:"pointer", display:"flex", alignItems:"center"}}>
-              <img src={logoWordmark} alt="Canadian Ag Innovation Navigator" style={{height:"64px",width:"auto",objectFit:"contain",display:"block"}} />
+              <img src={logoWordmark} alt="Canadian Ag Innovation Navigator" style={{height:"38px",width:"auto",objectFit:"contain",display:"block",filter:"brightness(0) invert(1)"}} />
             </div>
           </Link>
         </div>

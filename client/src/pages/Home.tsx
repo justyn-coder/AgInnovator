@@ -15,18 +15,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#f7f5f0] text-[#1a1a1a] relative flex flex-col" style={{ fontFamily: "'Source Serif 4', serif" }}>
       
-      {/* Powered by Logo */}
-      <div className="w-full pt-16 pb-4 flex flex-col justify-center items-center" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        <div className="text-[#8c8c8c] text-[0.65rem] font-bold uppercase tracking-[0.25em] mb-3">
-          Powered By
-        </div>
-        <a href="https://bestinshow.ag" target="_blank" rel="noopener noreferrer" className="flex items-center hover:opacity-80 transition-opacity">
-          <img src={bestInShowLogo} alt="BestInShow" className="h-20 object-contain" />
-        </a>
-      </div>
-
       {/* Hero Section */}
-      <main className="flex-1 pt-6 pb-16 px-6 max-w-5xl mx-auto flex flex-col items-center text-center">
+      <main className="flex-1 pt-16 pb-12 px-6 max-w-5xl mx-auto flex flex-col items-center text-center">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#1a3a0a] leading-[1.1] mb-12 max-w-4xl">
           Canada's ag innovation ecosystem is powerful. <br className="hidden md:block" />
           <span className="text-[#c5a55a]">It's also a maze.</span>
