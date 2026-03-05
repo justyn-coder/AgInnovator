@@ -670,7 +670,9 @@ export default function Navigator() {
       <header style={{background:th.hdr,padding:"9px 14px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:"3px solid "+th.acc,flexWrap:"wrap",gap:"5px"}}>
         <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
           <Link href="/">
-            <img src={logoImage} alt="Logo" style={{height:"32px",width:"32px",objectFit:"contain",cursor:"pointer"}} />
+            <div style={{width:"40px",height:"40px",background:"#fff",borderRadius:"8px",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",boxShadow:"0 1px 3px rgba(0,0,0,0.1)"}}>
+              <img src={logoImage} alt="Logo" style={{height:"28px",width:"28px",objectFit:"contain",display:"block"}} />
+            </div>
           </Link>
           <div>
             <h1 style={{color:"#f7f5f0",fontSize:"1rem",fontWeight:700,margin:0,...hs}}>Canadian Ag Innovation Navigator</h1>
