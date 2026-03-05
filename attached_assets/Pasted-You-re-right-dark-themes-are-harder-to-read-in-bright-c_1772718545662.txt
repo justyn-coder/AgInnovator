@@ -1,0 +1,76 @@
+You're right — dark themes are harder to read in bright conference environments too. Here's a better ecosystem theme:
+
+**Ecosystem theme: Steel blue on light gray**
+- Background: `#f0f2f5` (cool light gray)
+- Header: `#1e3a5f` (deep navy blue)
+- Accent: `#2e86ab` (teal blue)
+- Secondary accent: `#1e3a5f` (navy)
+- Cards: `#ffffff`
+- Text primary: `#1a1a1a`
+- Text secondary: `#5a6577`
+- Borders: `#d1d8e0`
+- Chart gradient: `#1e3a5f` to `#2e86ab`
+
+This gives the ecosystem mode a distinctly cooler, more analytical feel vs the warm green/gold of entrepreneur mode — visually different enough that people immediately register the mode switch, but still readable in any lighting.
+
+Here's the updated code for the theme object in your app. Find this block in the JSX:
+
+```
+var th = eco
+  ? {bg:"#1a1a2e",hdr:"#0f0f23",acc:"#e94560",ac2:"#533483",card:"#16213e",tx:"#eee",tx2:"#aab",brd:"#2a2a4a"}
+  : {bg:"#f7f5f0", ...
+```
+
+Replace the ecosystem line with:
+
+```
+var th = eco
+  ? {bg:"#f0f2f5",hdr:"#1e3a5f",acc:"#2e86ab",ac2:"#1e3a5f",card:"#ffffff",tx:"#1a1a1a",tx2:"#5a6577",brd:"#d1d8e0"}
+  : {bg:"#f7f5f0", ...
+```
+
+And in the `EcoStats` component, replace the dark background colors. Find every instance of:
+- `background:"#16213e"` → change to `background:"#ffffff"`
+- `border:"1px solid #2a2a4a"` → change to `border:"1px solid #d1d8e0"`
+- `background:"#0f0f23"` → change to `background:"#e4e8ec"`
+- `color:"#e94560"` → change to `color:"#1e3a5f"` (for section titles)
+- `color:"#aab"` → change to `color:"#5a6577"` (for labels)
+- `color:"#eee"` → change to `color:"#1a1a1a"` (for numbers)
+- The stat card colors at top: `c:"#7eb8ff"` → `c:"#1a4b8c"`, `c:"#7eff9e"` → `c:"#1a6b2a"`, `c:"#ffb87e"` → `c:"#8c5a1a"`
+- The gradient: `background:"linear-gradient(90deg,#533483,#e94560)"` → `background:"linear-gradient(90deg,#2e86ab,#1e3a5f)"`
+
+Let me also update the JSX file so you have a clean copy:One remnant — let me find it:Zero dark theme remnants. Clean.Updated file is clean. Here's the revised landing page copy for Replit with the new color system:
+
+---
+
+**Landing page copy for Replit:**
+
+**Hero headline:**
+Canada's ag innovation ecosystem is powerful. It's also a maze.
+
+**Subheadline:**
+99 programs. Funding, pilot sites, accelerators, events — mapped, scored, and connected. The Canadian Ag Innovation Navigator helps you find what's next in under 60 seconds.
+
+**Context line (smaller):**
+Built on Bioenterprise Canada's 2024 National Roundtable recommendation for "a centralized, easily accessible roadmap of services and resources for entrepreneurs to navigate the commercialization pathway."
+
+**Button 1: "I'm building something"**
+Subtitle: Find funding, pilot sites, and the right sequence for your stage.
+→ Entrepreneur mode
+
+**Button 2: "I'm building the ecosystem"**
+Subtitle: Find gaps, overlaps, and partnership opportunities across 99 programs.
+→ Ecosystem Intelligence mode
+
+**Stats bar:**
+39 funding programs · 9 pilot sites · 11 accelerators · 10 events · Alberta deep, national included
+
+**Footer:**
+V0 — Alberta live. SK & MB expanding. Data from Bioenterprise 2024, Alberta Innovates, RDAR, AAFC, Sustainable CAP. Built by Justyn Szymczyk.
+
+**Design direction:**
+Agricultural but modern. Two visual modes sharing the landing page:
+- **Entrepreneur feel:** Dark green `#1a3a0a`, gold `#c5a55a`, cream `#f7f5f0`
+- **Ecosystem feel:** Deep navy `#1e3a5f`, teal `#2e86ab`, light gray `#f0f2f5`
+- Body font: Source Serif 4. UI font: DM Sans.
+- No stock photos. Clean, confident, not corporate. The landing page can blend both color palettes — green/gold grounding the page with the teal blue accenting the ecosystem button.
