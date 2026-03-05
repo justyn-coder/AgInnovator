@@ -1,10 +1,19 @@
 import { Link } from "wouter";
-import { ArrowRight, Leaf, Map } from "lucide-react";
+import { ArrowRight, Leaf, Map, QrCode, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+import bestInShowLogo from "@/assets/images/bestinshow-logo.png";
 
 export default function Home() {
+  const [showQr, setShowQr] = useState(false);
+  const [siteUrl, setSiteUrl] = useState("");
+
+  useEffect(() => {
+    setSiteUrl(window.location.origin);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-[#f7f5f0] text-[#1a1a1a]" style={{ fontFamily: "'Source Serif 4', serif" }}>
+    <div className="min-h-screen bg-[#f7f5f0] text-[#1a1a1a] relative" style={{ fontFamily: "'Source Serif 4', serif" }}>
       {/* Hero Section */}
       <main className="pt-24 pb-16 px-6 max-w-5xl mx-auto flex flex-col items-center text-center">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#1a3a0a] leading-[1.1] mb-12 max-w-4xl">
@@ -66,26 +75,55 @@ export default function Home() {
         </p>
       </main>
 
-      {/* Feature snapshot */}
-      <section className="border-t border-b border-[#e5e0d5] bg-white py-12 px-6" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-center text-[#1a1a1a] font-medium text-sm md:text-base">
-          <span>39 funding programs</span>
-          <span className="hidden md:inline text-[#c5a55a]">·</span>
-          <span>9 pilot sites</span>
-          <span className="hidden md:inline text-[#c5a55a]">·</span>
-          <span>11 accelerators</span>
-          <span className="hidden md:inline text-[#c5a55a]">·</span>
-          <span>10 events</span>
-          <span className="hidden md:inline text-[#c5a55a]">·</span>
-          <span className="font-semibold text-[#1a3a0a]">Alberta deep, national included</span>
+      {/* Demo Banner */}
+      <section className="border-t border-b border-[#e5e0d5] bg-white py-6 px-6" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <div className="max-w-5xl mx-auto flex items-center justify-center gap-4 text-center text-[#1a1a1a] font-medium">
+          <span className="text-lg font-bold text-[#1a3a0a]">Demo Version 1.0</span>
+          <button 
+            onClick={() => setShowQr(true)}
+            className="p-2 rounded-full hover:bg-[#f0f2f5] text-[#1a3a0a] transition-colors"
+            title="Share with QR Code"
+          >
+            <QrCode className="w-6 h-6" />
+          </button>
         </div>
       </section>
       
       {/* Footer */}
-      <footer className="py-12 px-6 text-center text-[#666] text-sm max-w-4xl mx-auto" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        <p className="mb-2">V0 — Alberta live. SK & MB expanding. Data from Bioenterprise 2024, Alberta Innovates, RDAR, AAFC, Sustainable CAP.</p>
-        <p>Built by Justyn Szymczyk.</p>
+      <footer className="py-12 px-6 flex justify-center items-center" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <div className="flex items-center gap-2 text-[#666] text-sm">
+          <span>Built by</span>
+          <a href="https://bestinshow.ag" target="_blank" rel="noopener noreferrer" className="flex items-center">
+            <img src={bestInShowLogo} alt="BestInShow" className="h-6 object-contain" />
+          </a>
+        </div>
       </footer>
+
+      {/* QR Code Overlay */}
+      {showQr && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
+          <div className="bg-white rounded-2xl p-8 max-w-sm w-full shadow-2xl relative" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <button 
+              onClick={() => setShowQr(false)}
+              className="absolute top-4 right-4 p-1 text-[#666] hover:text-[#1a1a1a] hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="text-center">
+              <h3 className="text-xl font-bold text-[#1a3a0a] mb-2">Share Navigator</h3>
+              <p className="text-sm text-[#666] mb-6">Scan this QR code to open the app on another device.</p>
+              <div className="bg-white p-4 border border-[#e5e0d5] rounded-xl flex justify-center inline-block mx-auto mb-4">
+                <img 
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(siteUrl)}`} 
+                  alt="QR Code"
+                  className="w-48 h-48"
+                />
+              </div>
+              <p className="text-xs text-[#c5a55a] font-medium break-all">{siteUrl}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
