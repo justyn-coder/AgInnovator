@@ -594,16 +594,21 @@ function DB({onClose}) {
     return matchText && (cf === "All" || e.Category === cf);
   });
   return (
-    <div style={{position:"fixed",inset:0,background:"#f7f5f0",zIndex:1000,overflow:"auto",...hs}}>
-      <div style={{background:"#1a3a0a",padding:"9px 14px",display:"flex",justifyContent:"space-between",borderBottom:"3px solid #c5a55a",position:"sticky",top:0,zIndex:10}}><span style={{color:"#fff",fontWeight:700}}>{ft.length + "/" + E.length + " resources"}</span><button onClick={onClose} style={{background:"#c5a55a",border:"none",borderRadius:"5px",padding:"4px 11px",fontWeight:700,cursor:"pointer",...hs}}>X Close</button></div>
-      <div style={{padding:"8px 10px",display:"flex",gap:"5px",flexWrap:"wrap",position:"sticky",top:"42px",background:"#f7f5f0",zIndex:9,borderBottom:"1px solid #e5e0d5"}}>
+    <div style={{position:"fixed",inset:0,background:"#f7f5f0",zIndex:1000,display:"flex",flexDirection:"column",...hs}}>
+      <div style={{background:"#1a3a0a",padding:"9px 14px",display:"flex",justifyContent:"space-between",borderBottom:"3px solid #c5a55a",flexShrink:0}}><span style={{color:"#fff",fontWeight:700}}>{ft.length + "/" + E.length + " resources"}</span><button onClick={onClose} style={{background:"#c5a55a",border:"none",borderRadius:"5px",padding:"4px 11px",fontWeight:700,cursor:"pointer",...hs}}>X Close</button></div>
+      <div style={{padding:"8px 10px",display:"flex",gap:"5px",flexWrap:"wrap",background:"#f7f5f0",borderBottom:"1px solid #e5e0d5",flexShrink:0}}>
         <input value={fl} onChange={function(e){sFl(e.target.value);}} placeholder="Search..." style={{flex:1,minWidth:"140px",padding:"6px 9px",borderRadius:"5px",border:"1px solid #ccc",fontSize:"0.76rem",...hs}}/>
         <select value={cf} onChange={function(e){sCf(e.target.value);}} style={{padding:"6px 9px",borderRadius:"5px",border:"1px solid #ccc",fontSize:"0.76rem",...hs,background:"#fff"}}>{cats.map(function(c){return <option key={c} value={c}>{c==="All"?"All Categories":(CM[c]||{}).l||c}</option>;})}</select>
       </div>
-      <div style={{padding:"2px 10px",overflowX:"auto"}}>
+      <div style={{padding:"0 10px",background:"#2d5016",flexShrink:0}}>
         <table style={{width:"100%",borderCollapse:"collapse",fontSize:"0.7rem",lineHeight:"1.3",tableLayout:"fixed"}}>
           <colgroup><col style={{width:"20%"}}/><col style={{width:"10%"}}/><col style={{width:"10%"}}/><col style={{width:"40%"}}/><col style={{width:"20%"}}/></colgroup>
-          <thead><tr style={{background:"#2d5016",color:"#fff"}}>{["Name","Cat","Rgn","Best for","Need"].map(function(h){return <th key={h} style={{padding:"5px",textAlign:"left",fontWeight:600,position:"sticky",top:"82px",background:"#2d5016",zIndex:8}}>{h}</th>;})}</tr></thead>
+          <thead><tr style={{background:"#2d5016",color:"#fff"}}>{["Name","Cat","Rgn","Best for","Need"].map(function(h){return <th key={h} style={{padding:"5px",textAlign:"left",fontWeight:600}}>{h}</th>;})}</tr></thead>
+        </table>
+      </div>
+      <div style={{flex:1,overflowY:"auto",padding:"0 10px"}}>
+        <table style={{width:"100%",borderCollapse:"collapse",fontSize:"0.7rem",lineHeight:"1.3",tableLayout:"fixed"}}>
+          <colgroup><col style={{width:"20%"}}/><col style={{width:"10%"}}/><col style={{width:"10%"}}/><col style={{width:"40%"}}/><col style={{width:"20%"}}/></colgroup>
           <tbody>{ft.map(function(e,i){var cc=CM[e.Category]||{b:"#eee",t:"#333",l:"?"};return (
             <tr key={i} style={{borderBottom:"1px solid #eee",background:i%2===0?"#fff":"#fafaf7"}}>
               <td style={{padding:"4px 5px",fontWeight:600,wordBreak:"break-word",overflowWrap:"break-word"}}>{e.Name}</td>
