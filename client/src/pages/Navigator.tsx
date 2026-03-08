@@ -601,15 +601,16 @@ function DB({onClose}) {
         <select value={cf} onChange={function(e){sCf(e.target.value);}} style={{padding:"6px 9px",borderRadius:"5px",border:"1px solid #ccc",fontSize:"0.76rem",...hs,background:"#fff"}}>{cats.map(function(c){return <option key={c} value={c}>{c==="All"?"All Categories":(CM[c]||{}).l||c}</option>;})}</select>
       </div>
       <div style={{padding:"2px 10px",overflowX:"auto"}}>
-        <table style={{width:"100%",borderCollapse:"collapse",fontSize:"0.7rem",lineHeight:"1.3"}}>
+        <table style={{width:"100%",borderCollapse:"collapse",fontSize:"0.7rem",lineHeight:"1.3",tableLayout:"fixed"}}>
+          <colgroup><col style={{width:"20%"}}/><col style={{width:"10%"}}/><col style={{width:"10%"}}/><col style={{width:"40%"}}/><col style={{width:"20%"}}/></colgroup>
           <thead><tr style={{background:"#2d5016",color:"#fff"}}>{["Name","Cat","Rgn","Best for","Need"].map(function(h){return <th key={h} style={{padding:"5px",textAlign:"left",fontWeight:600,position:"sticky",top:"82px",background:"#2d5016",zIndex:8}}>{h}</th>;})}</tr></thead>
           <tbody>{ft.map(function(e,i){var cc=CM[e.Category]||{b:"#eee",t:"#333",l:"?"};return (
             <tr key={i} style={{borderBottom:"1px solid #eee",background:i%2===0?"#fff":"#fafaf7"}}>
-              <td style={{padding:"4px 5px",fontWeight:600,minWidth:"110px"}}>{e.Name}</td>
+              <td style={{padding:"4px 5px",fontWeight:600,wordBreak:"break-word",overflowWrap:"break-word"}}>{e.Name}</td>
               <td style={{padding:"4px"}}><span style={{background:cc.b,color:cc.t,padding:"1px 4px",borderRadius:"5px",fontSize:"0.56rem",fontWeight:600}}>{cc.l}</span></td>
-              <td style={{padding:"4px",fontSize:"0.62rem"}}>{e.Region}</td>
-              <td style={{padding:"4px",maxWidth:"200px",color:"#444"}}>{e.Best}</td>
-              <td style={{padding:"4px",fontSize:"0.6rem",color:"#666",maxWidth:"90px"}}>{e.Trigger}</td>
+              <td style={{padding:"4px",fontSize:"0.62rem",wordBreak:"break-word"}}>{e.Region}</td>
+              <td style={{padding:"4px",color:"#444",wordBreak:"break-word",overflowWrap:"break-word"}}>{e.Best}</td>
+              <td style={{padding:"4px",fontSize:"0.6rem",color:"#666",wordBreak:"break-word",overflowWrap:"break-word"}}>{e.Trigger}</td>
             </tr>
           );})}</tbody>
         </table>
