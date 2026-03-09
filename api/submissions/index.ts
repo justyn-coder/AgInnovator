@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { submissions, insertSubmissionSchema } from "../../shared/schema";
+import { submissions, insertSubmissionSchema } from "../schema";
 
 const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
 if (!connectionString) throw new Error("No database connection string found");
