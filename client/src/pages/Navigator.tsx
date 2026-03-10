@@ -699,20 +699,30 @@ export default function Navigator() {
 
   function send(t) {
     if (!t.trim() || ld) return;
-    var bank = eco ? PREBAKED_EC : PREBAKED_E;
-    var response = bank[t];
-    if (!response) {
-      response = "This is a demo with pre-built responses for the example queries. Tap one of the example buttons above to see the full navigator in action.\n\nThe live AI-powered version searches all 99 programs and generates custom recommendations for any situation. Coming soon.";
-    }
     var um = {role:"user",content:t};
-    sMs(function(prev){return prev.concat([um]);});
+    var nextMs = ms.concat([um]);
+    sMs(nextMs);
     sSx(false);
     sLd(true);
     sQ("");
-    setTimeout(function(){
-      sMs(function(prev){return prev.concat([{role:"assistant",content:response}]);});
-      sLd(false);
-    }, 800);
+    fetch("/api/chat", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        message: t,
+        mode: mode,
+        history: ms.slice(-6)
+      })
+    })
+      .then(function(r){return r.json();})
+      .then(function(d){
+        sMs(function(prev){return prev.concat([{role:"assistant",content:d.reply||"Sorry, no response generated."}]);});
+        sLd(false);
+      })
+      .catch(function(){
+        sMs(function(prev){return prev.concat([{role:"assistant",content:"Connection error. Please try again."}]);});
+        sLd(false);
+      });
   }
 
   function fmt(t) {
