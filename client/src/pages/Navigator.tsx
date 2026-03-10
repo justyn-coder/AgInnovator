@@ -654,7 +654,7 @@ function DB({onClose}) {
 
 
 export default function Navigator() {
-  var [mode, setMode] = useState(localStorage.getItem("ag_nav_mode") || "e");
+  var [mode, setMode] = useState(function(){ try { return localStorage.getItem("ag_nav_mode") || "e"; } catch(e) { return "e"; } });
   var [q, sQ] = useState("");
   var [ms, sMs] = useState([]);
   var [ld, sLd] = useState(false);
