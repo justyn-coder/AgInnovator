@@ -14,7 +14,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ message: "Method not allowed" });
   }
   try {
-    const result = await db.select().from(programs);
+    const result = await db.select().from(programs).orderBy(programs.name);
     return res.status(200).json(result);
   } catch (error) {
     console.error("Error fetching programs:", error);

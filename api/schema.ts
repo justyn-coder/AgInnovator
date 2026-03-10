@@ -40,10 +40,7 @@ export const submissions = pgTable("submissions", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const insertProgramSchema = createInsertSchema(programs).omit({ id: true });
 export const insertSubmissionSchema = createInsertSchema(submissions).omit({ id: true, createdAt: true });
-
-export type InsertProgram = z.infer<typeof insertProgramSchema>;
-export type Program = typeof programs.$inferSelect;
 export type InsertSubmission = z.infer<typeof insertSubmissionSchema>;
 export type Submission = typeof submissions.$inferSelect;
+export type Program = typeof programs.$inferSelect;
