@@ -587,42 +587,71 @@ function SF({onClose}) {
 function DB({onClose}) {
   var [fl,sFl] = useState("");
   var [cf,sCf] = useState("All");
+  var [data,setData] = useState([]);
+  var [loading,setLoading] = useState(true);
   var cats = ["All"].concat(CK);
-  var ft = E.filter(function(e){
+
+  useEffect(function(){
+    fetch("/api/programs")
+      .then(function(r){return r.json();})
+      .then(function(d){setData(d);setLoading(false);})
+      .catch(function(){setLoading(false);});
+  },[]);
+
+  var ft = data.filter(function(e){
     var t = fl.toLowerCase();
-    var matchText = !t || [e.Name,e.Best,e.PS,e.TD,e.Region].some(function(f){return f.toLowerCase().includes(t);});
-    return matchText && (cf === "All" || e.Category === cf);
+    var desc = e.description || "";
+    var prov = (e.province||[]).join(" ");
+    var uc = (e.use_case||[]).join(" ");
+    var matchText = !t || [e.name, desc, prov, uc].some(function(f){return (f||"").toLowerCase().includes(t);});
+    return matchText && (cf === "All" || e.category === cf);
   });
+
   return (
     <div style={{position:"fixed",inset:0,background:"#f7f5f0",zIndex:1000,display:"flex",flexDirection:"column",...hs}}>
-      <div style={{background:"#1a3a0a",padding:"9px 14px",display:"flex",justifyContent:"space-between",borderBottom:"3px solid #c5a55a",flexShrink:0}}><span style={{color:"#fff",fontWeight:700}}>{ft.length + "/" + E.length + " resources"}</span><button onClick={onClose} style={{background:"#c5a55a",border:"none",borderRadius:"5px",padding:"4px 11px",fontWeight:700,cursor:"pointer",...hs}}>X Close</button></div>
+      <div style={{background:"#1a3a0a",padding:"9px 14px",display:"flex",justifyContent:"space-between",borderBottom:"3px solid #c5a55a",flexShrink:0}}>
+        <span style={{color:"#fff",fontWeight:700}}>{loading ? "Loading..." : ft.length + "/" + data.length + " resources"}</span>
+        <button onClick={onClose} style={{background:"#c5a55a",border:"none",borderRadius:"5px",padding:"4px 11px",fontWeight:700,cursor:"pointer",...hs}}>X Close</button>
+      </div>
       <div style={{padding:"8px 10px",display:"flex",gap:"5px",flexWrap:"wrap",background:"#f7f5f0",borderBottom:"1px solid #e5e0d5",flexShrink:0}}>
         <input value={fl} onChange={function(e){sFl(e.target.value);}} placeholder="Search..." style={{flex:1,minWidth:"140px",padding:"6px 9px",borderRadius:"5px",border:"1px solid #ccc",fontSize:"0.76rem",...hs}}/>
         <select value={cf} onChange={function(e){sCf(e.target.value);}} style={{padding:"6px 9px",borderRadius:"5px",border:"1px solid #ccc",fontSize:"0.76rem",...hs,background:"#fff"}}>{cats.map(function(c){return <option key={c} value={c}>{c==="All"?"All Categories":(CM[c]||{}).l||c}</option>;})}</select>
       </div>
       <div style={{padding:"0 10px",background:"#2d5016",flexShrink:0}}>
         <table style={{width:"100%",borderCollapse:"collapse",fontSize:"0.7rem",lineHeight:"1.3",tableLayout:"fixed"}}>
-          <colgroup><col style={{width:"20%"}}/><col style={{width:"10%"}}/><col style={{width:"10%"}}/><col style={{width:"40%"}}/><col style={{width:"20%"}}/></colgroup>
-          <thead><tr style={{background:"#2d5016",color:"#fff"}}>{["Name","Cat","Rgn","Best for","Need"].map(function(h){return <th key={h} style={{padding:"5px",textAlign:"left",fontWeight:600}}>{h}</th>;})}</tr></thead>
+          <colgroup><col style={{width:"22%"}}/><col style={{width:"10%"}}/><col style={{width:"12%"}}/><col style={{width:"38%"}}/><col style={{width:"18%"}}/></colgroup>
+          <thead><tr style={{background:"#2d5016",color:"#fff"}}>{["Name","Cat","Province","Description","Use Case"].map(function(h){return <th key={h} style={{padding:"5px",textAlign:"left",fontWeight:600}}>{h}</th>;})}</tr></thead>
         </table>
       </div>
       <div style={{flex:1,overflowY:"auto",padding:"0 10px"}}>
-        <table style={{width:"100%",borderCollapse:"collapse",fontSize:"0.7rem",lineHeight:"1.3",tableLayout:"fixed"}}>
-          <colgroup><col style={{width:"20%"}}/><col style={{width:"10%"}}/><col style={{width:"10%"}}/><col style={{width:"40%"}}/><col style={{width:"20%"}}/></colgroup>
-          <tbody>{ft.map(function(e,i){var cc=CM[e.Category]||{b:"#eee",t:"#333",l:"?"};return (
-            <tr key={i} style={{borderBottom:"1px solid #eee",background:i%2===0?"#fff":"#fafaf7"}}>
-              <td style={{padding:"4px 5px",fontWeight:600,wordBreak:"break-word",overflowWrap:"break-word"}}>{e.Name}</td>
-              <td style={{padding:"4px"}}><span style={{background:cc.b,color:cc.t,padding:"1px 4px",borderRadius:"5px",fontSize:"0.56rem",fontWeight:600}}>{cc.l}</span></td>
-              <td style={{padding:"4px",fontSize:"0.62rem",wordBreak:"break-word"}}>{e.Region}</td>
-              <td style={{padding:"4px",color:"#444",wordBreak:"break-word",overflowWrap:"break-word"}}>{e.Best}</td>
-              <td style={{padding:"4px",fontSize:"0.6rem",color:"#666",wordBreak:"break-word",overflowWrap:"break-word"}}>{e.Trigger}</td>
-            </tr>
-          );})}</tbody>
-        </table>
+        {loading ? (
+          <div style={{padding:"24px",textAlign:"center",color:"#666",...hs}}>Loading programs...</div>
+        ) : (
+          <table style={{width:"100%",borderCollapse:"collapse",fontSize:"0.7rem",lineHeight:"1.3",tableLayout:"fixed"}}>
+            <colgroup><col style={{width:"22%"}}/><col style={{width:"10%"}}/><col style={{width:"12%"}}/><col style={{width:"38%"}}/><col style={{width:"18%"}}/></colgroup>
+            <tbody>{ft.map(function(e,i){
+              var cc=CM[e.category]||{b:"#eee",t:"#333",l:"?"};
+              var prov=(e.province||[]).filter(function(p){return p!=="National";}).join(", ")||(e.national?"National":"—");
+              return (
+                <tr key={i} style={{borderBottom:"1px solid #eee",background:i%2===0?"#fff":"#fafaf7"}}>
+                  <td style={{padding:"4px 5px",fontWeight:600,wordBreak:"break-word",overflowWrap:"break-word"}}>
+                    {e.website ? <a href={e.website} target="_blank" rel="noopener noreferrer" style={{color:"#1a3a0a",textDecoration:"underline"}}>{e.name}</a> : e.name}
+                    {e.status==="unverified" && <span style={{fontSize:"0.44rem",color:"#aaa",marginLeft:"3px"}}> ●</span>}
+                  </td>
+                  <td style={{padding:"4px"}}><span style={{background:cc.b,color:cc.t,padding:"1px 4px",borderRadius:"5px",fontSize:"0.56rem",fontWeight:600}}>{cc.l}</span></td>
+                  <td style={{padding:"4px",fontSize:"0.62rem",wordBreak:"break-word"}}>{prov}</td>
+                  <td style={{padding:"4px",color:"#444",wordBreak:"break-word",overflowWrap:"break-word"}}>{e.description||"—"}</td>
+                  <td style={{padding:"4px",fontSize:"0.6rem",color:"#666",wordBreak:"break-word",overflowWrap:"break-word"}}>{(e.use_case||[]).join(", ")||"—"}</td>
+                </tr>
+              );
+            })}</tbody>
+          </table>
+        )}
       </div>
     </div>
   );
 }
+
 
 export default function Navigator() {
   var [mode, setMode] = useState(localStorage.getItem("ag_nav_mode") || "e");
@@ -775,7 +804,7 @@ export default function Navigator() {
         {ld && (
           <div style={{display:"flex",alignItems:"center",gap:"6px",padding:"12px 0",color:th.tx2,...hs,fontSize:"0.78rem"}}>
             <span style={{display:"inline-block",width:"8px",height:"8px",borderRadius:"50%",background:th.ac2,animation:"pls 1s infinite"}}/>
-            {eco ? "Analyzing ecosystem..." : "Searching 99 programs..."}
+            {eco ? "Analyzing ecosystem..." : "Searching 157 programs..."}
             <style dangerouslySetInnerHTML={{__html:"@keyframes pls{0%,100%{opacity:.3}50%{opacity:1}}"}}/>
           </div>
         )}
@@ -790,7 +819,7 @@ export default function Navigator() {
           </button>
         </div>
         <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"16px",paddingBottom:"8px"}}>
-          <p style={{fontSize:"0.54rem",color:th.tx2,...hs,margin:0,textAlign:"center"}}>Canadian Ag Innovation Navigator V0 - 99 entries - Bioenterprise 2024 + provincial + federal</p>
+          <p style={{fontSize:"0.54rem",color:th.tx2,...hs,margin:0,textAlign:"center"}}>Canadian Ag Innovation Navigator V0 - 157 entries - Bioenterprise 2024 + provincial + federal</p>
           <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"6px"}}>
             <span style={{fontSize:"0.5rem",color:"#8c8c8c",...hs,textTransform:"uppercase",letterSpacing:"0.2em",fontWeight:700}}>Powered by</span>
             <a href="https://bestinshow.ag" target="_blank" rel="noopener noreferrer" style={{display:"block", opacity:0.9, transition:"opacity 0.2s"}}>

@@ -56,7 +56,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-[#1e3a5f] mb-3">I'm building the ecosystem</h3>
               <p className="text-[#5a6577] text-base leading-relaxed mb-6 flex-grow">
-                Find gaps, overlaps, and partnership opportunities across 99 programs (so far).
+                Find gaps, overlaps, and partnership opportunities across 157 programs (so far).
               </p>
               <div className="flex items-center gap-2 text-sm font-bold text-[#2e86ab] uppercase tracking-wider">
                 <span>Ecosystem Intelligence Mode</span>
@@ -68,7 +68,7 @@ export default function Home() {
         </div>
 
         <p className="text-xl md:text-2xl text-[#1a1a1a] max-w-3xl mb-8 leading-relaxed font-light">
-          99 programs (so far). Funding, pilot sites, accelerators, events — mapped, scored, and connected. The Canadian Ag Innovation Navigator helps you find what's next in under 60 seconds.
+          157 programs (so far). Funding, pilot sites, accelerators, events — mapped, scored, and connected. The Canadian Ag Innovation Navigator helps you find what's next in under 60 seconds.
         </p>
         
         <p className="text-sm md:text-base text-[#666] max-w-3xl mb-8 leading-relaxed italic border-l-2 border-[#c5a55a] pl-4 text-left">
