@@ -804,7 +804,7 @@ export default function Navigator() {
         {ld && (
           <div style={{display:"flex",alignItems:"center",gap:"6px",padding:"12px 0",color:th.tx2,...hs,fontSize:"0.78rem"}}>
             <span style={{display:"inline-block",width:"8px",height:"8px",borderRadius:"50%",background:th.ac2,animation:"pls 1s infinite"}}/>
-            {eco ? "Analyzing ecosystem..." : "Searching 157 programs..."}
+            {eco ? "Analyzing ecosystem..." : `Searching ${data.length} programs...`}
             <style dangerouslySetInnerHTML={{__html:"@keyframes pls{0%,100%{opacity:.3}50%{opacity:1}}"}}/>
           </div>
         )}
@@ -819,7 +819,7 @@ export default function Navigator() {
           </button>
         </div>
         <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"16px",paddingBottom:"8px"}}>
-          <p style={{fontSize:"0.54rem",color:th.tx2,...hs,margin:0,textAlign:"center"}}>Canadian Ag Innovation Navigator V0 - 157 entries - Bioenterprise 2024 + provincial + federal</p>
+          <p style={{fontSize:"0.54rem",color:th.tx2,...hs,margin:0,textAlign:"center"}}>Canadian Ag Innovation Navigator V0 - {data.length} entries - Bioenterprise 2024 + provincial + federal</p>
           <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"6px"}}>
             <span style={{fontSize:"0.5rem",color:"#8c8c8c",...hs,textTransform:"uppercase",letterSpacing:"0.2em",fontWeight:700}}>Powered by</span>
             <a href="https://bestinshow.ag" target="_blank" rel="noopener noreferrer" style={{display:"block", opacity:0.9, transition:"opacity 0.2s"}}>
